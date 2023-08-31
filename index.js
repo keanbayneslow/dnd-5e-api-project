@@ -1,5 +1,61 @@
 // RANDOM CHARACTER GENERATION
 
+async function getRandomData(url) {
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return null;
+    }
+}
+
+async function generateRandomCharacter() {
+    const characterName = document.getElementById('characterName').value;
+    if (characterName === '') {
+        alert('Please enter a character name.');
+        return;
+    }
+
+    const randomRaceData = await getRandomData('https://www.dnd5eapi.co/api/races');
+    const randomClassData = await getRandomData('https://www.dnd5eapi.co/api/classes');
+    const randomSkillsData = await getRandomData('https://www.dnd5eapi.co/api/skills');
+    const randomEquipmentData = await getRandomData('https://www.dnd5eapi.co/api/equipment');
+    const randomAlignmentData = await getRandomData('https://www.dnd5eapi.co/api/alignments');
+
+    if (
+        !randomRaceData ||
+        !randomClassData ||
+        !randomSkillsData ||
+        !randomEquipmentData ||
+        !randomAlignmentData
+    ) {
+        alert('Error fetching data from the API.');
+        return;
+    }
+
+    const randomRace = randomRaceData.results[Math.floor(Math.random() * randomRaceData.results.length)].name;
+    const randomClass = randomClassData.results[Math.floor(Math.random() * randomClassData.results.length)].name;
+    const randomSkills = randomSkillsData.results.slice(0, Math.floor(Math.random() * (randomSkillsData.results.length - 1)) + 1).map(skill => skill.name);
+    const randomEquipment = randomEquipmentData.results.slice(0, Math.floor(Math.random() * (randomEquipmentData.results.length - 1)) + 1).map(equipment => equipment.name);
+    const randomAlignment = randomAlignmentData.results[Math.floor(Math.random() * randomAlignmentData.results.length)].name;
+
+    const generatedCharacterInfo = `
+        <p><strong>Name:</strong> ${characterName}</p>
+        <p><strong>Race:</strong> ${randomRace}</p>
+        <p><strong>Class:</strong> ${randomClass}</p>
+        <p><strong>Skills:</strong> ${randomSkills.join(', ')}</p>
+        <p><strong>Starting Equipment:</strong> ${randomEquipment.join(', ')}</p>
+        <p><strong>Alignment:</strong> ${randomAlignment}</p>
+    `;
+
+    document.getElementById('generatedCharacter').innerHTML = generatedCharacterInfo;
+}
+
+const generateButton = document.getElementById('generateButton');
+generateButton.addEventListener('click', generateRandomCharacter);
+
 
 // SEARCH FUNCTIONALITY
 
