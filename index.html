@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kean Bayneslow - Phase 1 - API Project</title>
+</head>
+
+<body>
+
+    <section id="character">
+        <h1 class="title">Generate a Random Character</h1>
+        <div>
+            <label for="characterName">Enter Character Name:</label>
+            <input type="text" id="characterName" />
+            <button id="generateButton">Generate Random Character</button>
+        </div>
+        <div>
+            <h2 class="secondaryTitle">Generated Character:</h2>
+            <div id="generatedCharacter"></div>
+        </div>
+    </section>
+
+    <section id="search">
+        <h1 class="title">Search the D&D Database</h1>
+        <select id="categorySelect">
+            <option value="races">Races</option>
+            <option value="classes">Classes</option>
+            <option value="skills">Skills</option>
+            <option value="spells">Spells</option>
+        </select>
+
+        <input type="text" id="searchInput" placeholder="Search races, classes, spells etc." />
+        <button id="searchButton">Search</button>
+        <div id="searchResults"></div>
+        <div id="selectedInfo"></div>
+    </section>
+
+    <script src="index.js"></script>
+
+</body>
+
+</html>
