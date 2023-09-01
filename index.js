@@ -25,6 +25,7 @@ async function generateRandomCharacter() {
     const randomAlignmentData = await getRandomData('https://www.dnd5eapi.co/api/alignments');
     const randomLanguageData = await getRandomData('https://www.dnd5eapi.co/api/languages');
     const randomProficiencyData = await getRandomData('https://www.dnd5eapi.co/api/proficiencies');
+    const randomAbilityScoreData = await getRandomData('https://www.dnd5eapi.co/api/ability-scores');
 
     if (
         !randomRaceData ||
@@ -33,7 +34,8 @@ async function generateRandomCharacter() {
         !randomEquipmentData ||
         !randomAlignmentData ||
         !randomLanguageData ||
-        !randomProficiencyData
+        !randomProficiencyData ||
+        !randomAbilityScoreData
     ) {
         alert('Error fetching data from the API.');
         return;
@@ -46,11 +48,16 @@ async function generateRandomCharacter() {
     const randomAlignment = randomAlignmentData.results[Math.floor(Math.random() * randomAlignmentData.results.length)].name;
     const randomLanguages = randomLanguageData.results.slice(0, Math.floor(Math.random() * (randomLanguageData.results.length - 1)) + 1).map(language => language.name);
     const randomProficiencies = randomProficiencyData.results.slice(0, Math.floor(Math.random() * (randomProficiencyData.results.length - 1)) + 1).map(proficiency => proficiency.name);
+    const randomAbilityScores = randomAbilityScoreData.results.reduce((scores, ability) => {
+        scores[ability.index] = Math.floor(Math.random() * 10) + 3;
+        return scores;
+    }, {});
 
     const generatedCharacterInfo = `
         <p><strong>Name:</strong> ${characterName}</p>
         <p><strong>Race:</strong> ${randomRace}</p>
         <p><strong>Class:</strong> ${randomClass}</p>
+        <p><strong>Ability Scores:</strong> ${Object.keys(randomAbilityScores).map(key => `${key}: ${randomAbilityScores[key]}`).join(', ')}</p>
         <p><strong>Languages:</strong> ${randomLanguages.join(', ')}</p>
         <p><strong>Skills:</strong> ${randomSkills.join(', ')}</p>
         <p><strong>Proficiencies:</strong> ${randomProficiencies.join(', ')}</p>
