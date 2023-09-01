@@ -23,13 +23,15 @@ async function generateRandomCharacter() {
     const randomSkillsData = await getRandomData('https://www.dnd5eapi.co/api/skills');
     const randomEquipmentData = await getRandomData('https://www.dnd5eapi.co/api/equipment');
     const randomAlignmentData = await getRandomData('https://www.dnd5eapi.co/api/alignments');
+    const randomLanguageData = await getRandomData('https://www.dnd5eapi.co/api/languages');
 
     if (
         !randomRaceData ||
         !randomClassData ||
         !randomSkillsData ||
         !randomEquipmentData ||
-        !randomAlignmentData
+        !randomAlignmentData ||
+        !randomLanguageData
     ) {
         alert('Error fetching data from the API.');
         return;
@@ -40,11 +42,13 @@ async function generateRandomCharacter() {
     const randomSkills = randomSkillsData.results.slice(0, Math.floor(Math.random() * (randomSkillsData.results.length - 1)) + 1).map(skill => skill.name);
     const randomEquipment = randomEquipmentData.results.slice(0, Math.floor(Math.random() * (randomEquipmentData.results.length - 1)) + 1).map(equipment => equipment.name);
     const randomAlignment = randomAlignmentData.results[Math.floor(Math.random() * randomAlignmentData.results.length)].name;
+    const randomLanguages = randomLanguageData.results.slice(0, Math.floor(Math.random() * (randomLanguageData.results.length - 1)) + 1).map(language => language.name);
 
     const generatedCharacterInfo = `
         <p><strong>Name:</strong> ${characterName}</p>
         <p><strong>Race:</strong> ${randomRace}</p>
         <p><strong>Class:</strong> ${randomClass}</p>
+        <p><strong>Languages:</strong> ${randomLanguages.join(', ')}</p>
         <p><strong>Skills:</strong> ${randomSkills.join(', ')}</p>
         <p><strong>Starting Equipment:</strong> ${randomEquipment.join(', ')}</p>
         <p><strong>Alignment:</strong> ${randomAlignment}</p>
