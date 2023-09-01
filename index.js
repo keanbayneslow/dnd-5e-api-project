@@ -18,7 +18,11 @@ async function generateRandomCharacter() {
         return;
     }
 
-    const numRandomSkills = Math.floor(Math.random() * 3) + 1
+    const numRandomSkills = Math.floor(Math.random() * 3) + 2
+    const maxRandomLanguages = Math.floor(Math.random() * 3) + 2
+    const maxRandomProficiencies = 6;
+    const maxRandomEquipment = 8;
+
 
     const randomRaceData = await getRandomData('https://www.dnd5eapi.co/api/races');
     const randomClassData = await getRandomData('https://www.dnd5eapi.co/api/classes');
@@ -50,10 +54,26 @@ async function generateRandomCharacter() {
         const randomSkill = randomSkillsData.results[Math.floor(Math.random() * randomSkillsData.results.length)].name;
         randomSkills.push(randomSkill);
     }
-    const randomEquipment = randomEquipmentData.results.slice(0, Math.floor(Math.random() * (randomEquipmentData.results.length - 1)) + 1).map(equipment => equipment.name);
+    const randomEquipment = [];
+    while (randomEquipment.length < maxRandomEquipment && randomEquipment.length < randomEquipmentData.results.length) {
+        const randomIndex = Math.floor(Math.random() * randomEquipmentData.results.length);
+        const randomItem = randomEquipmentData.results[randomIndex].name;
+        if (!randomEquipment.includes(randomItem)) {
+            randomEquipment.push(randomItem);
+        }
+    }
     const randomAlignment = randomAlignmentData.results[Math.floor(Math.random() * randomAlignmentData.results.length)].name;
-    const randomLanguages = randomLanguageData.results.slice(0, Math.floor(Math.random() * (randomLanguageData.results.length - 1)) + 1).map(language => language.name);
-    const randomProficiencies = randomProficiencyData.results.slice(0, Math.floor(Math.random() * (randomProficiencyData.results.length - 1)) + 1).map(proficiency => proficiency.name);
+    const randomLanguages = randomLanguageData.results
+        .slice(0, Math.min(maxRandomLanguages, randomLanguageData.results.length))
+        .map(language => language.name);
+    const randomProficiencies = [];
+    while (randomProficiencies.length < maxRandomProficiencies && randomProficiencies.length < randomProficiencyData.results.length) {
+        const randomIndex = Math.floor(Math.random() * randomProficiencyData.results.length);
+        const randomProficiency = randomProficiencyData.results[randomIndex].name;
+        if (!randomProficiencies.includes(randomProficiency)) {
+            randomProficiencies.push(randomProficiency);
+        }
+    }
     const randomAbilityScores = randomAbilityScoreData.results.reduce((scores, ability) => {
         scores[ability.index] = Math.floor(Math.random() * 10) + 10;
         return scores;
