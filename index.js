@@ -49,14 +49,20 @@ async function generateRandomCharacter() {
     const randomLanguages = randomLanguageData.results.slice(0, Math.floor(Math.random() * (randomLanguageData.results.length - 1)) + 1).map(language => language.name);
     const randomProficiencies = randomProficiencyData.results.slice(0, Math.floor(Math.random() * (randomProficiencyData.results.length - 1)) + 1).map(proficiency => proficiency.name);
     const randomAbilityScores = randomAbilityScoreData.results.reduce((scores, ability) => {
-        scores[ability.index] = Math.floor(Math.random() * 10) + 3;
+        scores[ability.index] = Math.floor(Math.random() * 10) + 10;
         return scores;
     }, {});
+    const randomLevel = Math.floor(Math.random() * 5) + 1;
+    const randomHitPoints = 15 + randomLevel * (Math.floor(Math.random() * 8) + 4);
+
+
 
     const generatedCharacterInfo = `
         <p><strong>Name:</strong> ${characterName}</p>
         <p><strong>Race:</strong> ${randomRace}</p>
         <p><strong>Class:</strong> ${randomClass}</p>
+        <p><strong>Level:</strong> ${randomLevel}</p>
+        <p><strong>Hit Points:</strong> ${randomHitPoints}</p>
         <p><strong>Ability Scores:</strong> ${Object.keys(randomAbilityScores).map(key => `${key}: ${randomAbilityScores[key]}`).join(', ')}</p>
         <p><strong>Languages:</strong> ${randomLanguages.join(', ')}</p>
         <p><strong>Skills:</strong> ${randomSkills.join(', ')}</p>
