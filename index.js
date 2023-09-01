@@ -18,6 +18,8 @@ async function generateRandomCharacter() {
         return;
     }
 
+    const numRandomSkills = Math.floor(Math.random() * 3) + 1
+
     const randomRaceData = await getRandomData('https://www.dnd5eapi.co/api/races');
     const randomClassData = await getRandomData('https://www.dnd5eapi.co/api/classes');
     const randomSkillsData = await getRandomData('https://www.dnd5eapi.co/api/skills');
@@ -43,7 +45,11 @@ async function generateRandomCharacter() {
 
     const randomRace = randomRaceData.results[Math.floor(Math.random() * randomRaceData.results.length)].name;
     const randomClass = randomClassData.results[Math.floor(Math.random() * randomClassData.results.length)].name;
-    const randomSkills = randomSkillsData.results.slice(0, Math.floor(Math.random() * (randomSkillsData.results.length - 1)) + 1).map(skill => skill.name);
+    const randomSkills = [];
+    for (let i = 0; i < numRandomSkills; i++) {
+        const randomSkill = randomSkillsData.results[Math.floor(Math.random() * randomSkillsData.results.length)].name;
+        randomSkills.push(randomSkill);
+    }
     const randomEquipment = randomEquipmentData.results.slice(0, Math.floor(Math.random() * (randomEquipmentData.results.length - 1)) + 1).map(equipment => equipment.name);
     const randomAlignment = randomAlignmentData.results[Math.floor(Math.random() * randomAlignmentData.results.length)].name;
     const randomLanguages = randomLanguageData.results.slice(0, Math.floor(Math.random() * (randomLanguageData.results.length - 1)) + 1).map(language => language.name);
