@@ -11,6 +11,18 @@ async function getRandomData(url) {
     }
 }
 
+function getRandomItems(data, maxItems) {
+    const randomItems = [];
+    while (randomItems.length < maxItems && randomItems.length < data.length) {
+        const randomIndex = Math.floor(Math.random() * data.length);
+        const randomItem = data[randomIndex].name;
+        if (!randomItems.includes(randomItem)) {
+            randomItems.push(randomItem);
+        }
+    }
+    return randomItems;
+}
+
 async function generateRandomCharacter() {
     const characterName = document.getElementById('characterName').value;
     if (characterName === '') {
@@ -49,31 +61,11 @@ async function generateRandomCharacter() {
 
     const randomRace = randomRaceData.results[Math.floor(Math.random() * randomRaceData.results.length)].name;
     const randomClass = randomClassData.results[Math.floor(Math.random() * randomClassData.results.length)].name;
-    const randomSkills = [];
-    for (let i = 0; i < numRandomSkills; i++) {
-        const randomSkill = randomSkillsData.results[Math.floor(Math.random() * randomSkillsData.results.length)].name;
-        randomSkills.push(randomSkill);
-    }
-    const randomEquipment = [];
-    while (randomEquipment.length < maxRandomEquipment && randomEquipment.length < randomEquipmentData.results.length) {
-        const randomIndex = Math.floor(Math.random() * randomEquipmentData.results.length);
-        const randomItem = randomEquipmentData.results[randomIndex].name;
-        if (!randomEquipment.includes(randomItem)) {
-            randomEquipment.push(randomItem);
-        }
-    }
+    const randomSkills = getRandomItems(randomSkillsData.results, numRandomSkills);
+    const randomEquipment = getRandomItems(randomEquipmentData.results, maxRandomEquipment);
     const randomAlignment = randomAlignmentData.results[Math.floor(Math.random() * randomAlignmentData.results.length)].name;
-    const randomLanguages = randomLanguageData.results
-        .slice(0, Math.min(maxRandomLanguages, randomLanguageData.results.length))
-        .map(language => language.name);
-    const randomProficiencies = [];
-    while (randomProficiencies.length < maxRandomProficiencies && randomProficiencies.length < randomProficiencyData.results.length) {
-        const randomIndex = Math.floor(Math.random() * randomProficiencyData.results.length);
-        const randomProficiency = randomProficiencyData.results[randomIndex].name;
-        if (!randomProficiencies.includes(randomProficiency)) {
-            randomProficiencies.push(randomProficiency);
-        }
-    }
+    const randomLanguages = getRandomItems(randomLanguageData.results, maxRandomLanguages);
+    const randomProficiencies = getRandomItems(randomProficiencyData.results, maxRandomProficiencies);
     const randomAbilityScores = randomAbilityScoreData.results.reduce((scores, ability) => {
         scores[ability.index] = Math.floor(Math.random() * 10) + 10;
         return scores;
