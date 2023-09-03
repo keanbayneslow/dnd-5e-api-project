@@ -30,6 +30,8 @@ async function generateRandomCharacter() {
         return;
     }
 
+
+
     const numRandomSkills = Math.floor(Math.random() * 3) + 2
     const maxRandomLanguages = Math.floor(Math.random() * 3) + 2
     const maxRandomProficiencies = 6;
@@ -76,11 +78,25 @@ async function generateRandomCharacter() {
 
 
     const generatedCharacterInfo = `
-        <p><strong>Name:</strong> ${characterName}</p>
-        <p><strong>Race:</strong> ${randomRace}</p>
-        <p><strong>Class:</strong> ${randomClass}</p>
-        <p><strong>Level:</strong> ${randomLevel}</p>
-        <p><strong>Hit Points:</strong> ${randomHitPoints}</p>
+    <div class="characterAttribute">
+    <strong>Name:</strong> ${characterName}
+    </div>
+    <div class="characterAttribute" id="race">
+    <strong>Race:</strong> ${randomRace}
+    <button class="randomiseButton" id="randomiseRace">Re-Roll</button>
+    </div>
+    <div class="characterAttribute" id="class">
+    <strong>Class:</strong> ${randomClass}
+    <button class="randomiseButton" id="randomiseClass">Re-Roll</button>
+    </div>
+    <div class="characterAttribute" id="level">
+    <strong>Level:</strong> ${randomLevel}
+    <button class="randomiseButton" id="randomiseLevel">Re-Roll</button>
+    </div>
+    <div class="characterAttribute" id="hitPoints">
+    <strong>Hit Points:</strong> ${randomHitPoints}
+    <button class="randomiseButton" id="randomiseHitPoints">Re-Roll</button>
+    </div>
         <p><strong>Ability Scores:</strong> ${Object.keys(randomAbilityScores).map(key => `${key}: ${randomAbilityScores[key]}`).join(', ')}</p>
         <p><strong>Languages:</strong> ${randomLanguages.join(', ')}</p>
         <p><strong>Skills:</strong> ${randomSkills.join(', ')}</p>
@@ -89,11 +105,44 @@ async function generateRandomCharacter() {
         <p><strong>Alignment:</strong> ${randomAlignment}</p>
     `;
 
+
+    document.addEventListener('click', function (event) {
+        if (event.target && event.target.className === 'randomiseButton') {
+            const attributeId = event.target.getAttribute('dataAttributeId');
+
+            if (attributeId === 'race') {
+                randomiseRace();
+            } else if (attributeId === 'class') {
+                randomiseClass();
+            } else if (attributeId === 'level') {
+                randomiseLevel();
+            } else if (attributeId === 'hitPoints') {
+                randomiseHitPoints();
+            }
+        }
+    });
+
+    function randomiseRace() {
+        const randomRaceData = getRandomData('https://www.dnd5eapi.co/api/races');
+        randomRaceData.then((data) => {
+            const randomRace = data.results[Math.floor(Math.random() * data.results.length)].name;
+            document.getElementById('race').innerHTML = `<strong>Race:</strong> ${randomRace}`;
+        }).catch((error) => {
+            console.error('Error fetching random race data:', error);
+        });
+    }
+
     document.getElementById('generatedCharacter').innerHTML = generatedCharacterInfo;
+
+    document.getElementById('randomiseRace').addEventListener('click', randomiseRace);
+    document.getElementById('randomiseClass').addEventListener('click', randomiseClass);
+    document.getElementById('randomiseLevel').addEventListener('click', randomiseLevel);
+    document.getElementById('randomiseHitPoints').addEventListener('click', randomiseHitPoints);
 }
 
 const generateButton = document.getElementById('generateButton');
 generateButton.addEventListener('click', generateRandomCharacter);
+
 
 
 // SEARCH FUNCTIONALITY
