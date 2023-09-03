@@ -107,29 +107,62 @@ async function generateRandomCharacter() {
 
 
     document.addEventListener('click', function (event) {
-        if (event.target && event.target.className === 'randomiseButton') {
-            const attributeId = event.target.getAttribute('dataAttributeId');
+        if (event.target && event.target.classList.contains('randomiseButton')) {
+            const parentDiv = event.target.parentElement;
+            const attributeId = parentDiv.getAttribute('id');
 
             if (attributeId === 'race') {
-                randomiseRace();
+                randomiseRace(parentDiv);
             } else if (attributeId === 'class') {
-                randomiseClass();
+                randomiseClass(parentDiv);
             } else if (attributeId === 'level') {
-                randomiseLevel();
+                randomiseLevel(parentDiv);
             } else if (attributeId === 'hitPoints') {
-                randomiseHitPoints();
+                randomiseHitPoints(parentDiv);
             }
         }
     });
 
-    function randomiseRace() {
+    function randomiseRace(parentDiv) {
         const randomRaceData = getRandomData('https://www.dnd5eapi.co/api/races');
         randomRaceData.then((data) => {
             const randomRace = data.results[Math.floor(Math.random() * data.results.length)].name;
-            document.getElementById('race').innerHTML = `<strong>Race:</strong> ${randomRace}`;
+            parentDiv.innerHTML = `
+                <strong>Race:</strong> ${randomRace}
+                <button class="randomiseButton" id="randomiseRace">Re-Roll</button>
+            `;
         }).catch((error) => {
             console.error('Error fetching random race data:', error);
         });
+    }
+
+    function randomiseClass(parentDiv) {
+        const randomClassData = getRandomData('https://www.dnd5eapi.co/api/classes');
+        randomClassData.then((data) => {
+            const randomClass = data.results[Math.floor(Math.random() * data.results.length)].name;
+            parentDiv.innerHTML = `
+                <strong>Class:</strong> ${randomClass}
+                <button class="randomiseButton" id="randomiseClass">Re-Roll</button>
+            `;
+        }).catch((error) => {
+            console.error('Error fetching random class data:', error);
+        });
+    }
+
+    function randomiseLevel(parentDiv) {
+        const randomLevel = Math.floor(Math.random() * 5) + 1;
+        parentDiv.innerHTML = `
+            <strong>Level:</strong> ${randomLevel}
+            <button class="randomiseButton" id="randomiseLevel">Re-Roll</button>
+        `;
+    }
+
+    function randomiseHitPoints(parentDiv) {
+        const randomHitPoints = 15 + Math.floor(Math.random() * 8) + 4;
+        parentDiv.innerHTML = `
+            <strong>Hit Points:</strong> ${randomHitPoints}
+            <button class="randomiseButton" id="randomiseHitPoints">Re-Roll</button>
+        `;
     }
 
     document.getElementById('generatedCharacter').innerHTML = generatedCharacterInfo;
