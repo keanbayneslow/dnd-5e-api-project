@@ -94,6 +94,7 @@ async function generateRandomCharacter() {
     const randomHitPoints = 15 + randomLevel * (Math.floor(Math.random() * 8) + 4);
 
 
+
     const generatedCharacterInfo = `
     <div class="characterAttribute">
     <strong>Name:</strong> ${characterName}
@@ -319,7 +320,16 @@ async function generateRandomCharacter() {
 }
 
 const generateButton = document.getElementById('generateButton');
+const generateButtonText = document.getElementById('generateButtonText');
+
 generateButton.addEventListener('click', generateRandomCharacter);
+generateButton.addEventListener('mouseover', () => {
+    generateButtonText.textContent = 'Roll to generate a random Character';
+});
+
+generateButton.addEventListener('mouseout', () => {
+    generateButtonText.textContent = '';
+});
 
 
 
