@@ -1,4 +1,8 @@
 // RANDOM CHARACTER GENERATION
+const numRandomSkills = Math.floor(Math.random() * 4) + 2
+const maxRandomLanguages = Math.floor(Math.random() * 2) + 1
+const maxRandomProficiencies = 6;
+const maxRandomEquipment = 8;
 
 async function getRandomData(url) {
     try {
@@ -23,41 +27,55 @@ function getRandomItems(data, maxItems) {
     return randomItems;
 }
 
+let randomRaceData, randomClassData, randomSkillsData, randomEquipmentData, randomAlignmentData, randomLanguageData, randomProficiencyData, randomAbilityScoreData;
+
+async function fetchData() {
+    try {
+        randomRaceData = await getRandomData('https://www.dnd5eapi.co/api/races');
+        randomClassData = await getRandomData('https://www.dnd5eapi.co/api/classes');
+        randomSkillsData = await getRandomData('https://www.dnd5eapi.co/api/skills');
+        randomEquipmentData = await getRandomData('https://www.dnd5eapi.co/api/equipment');
+        randomAlignmentData = await getRandomData('https://www.dnd5eapi.co/api/alignments');
+        randomLanguageData = await getRandomData('https://www.dnd5eapi.co/api/languages');
+        randomProficiencyData = await getRandomData('https://www.dnd5eapi.co/api/proficiencies');
+        randomAbilityScoreData = await getRandomData('https://www.dnd5eapi.co/api/ability-scores');
+
+        if (
+            !randomRaceData ||
+            !randomClassData ||
+            !randomSkillsData ||
+            !randomEquipmentData ||
+            !randomAlignmentData ||
+            !randomLanguageData ||
+            !randomProficiencyData ||
+            !randomAbilityScoreData
+        ) {
+            alert('Error fetching data from the API.');
+            return;
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+// Call fetchData function before generating the character
+fetchData();
+
+function getRandomItems(data, maxItems) {
+    const randomItems = [];
+    while (randomItems.length < maxItems && randomItems.length < data.length) {
+        const randomIndex = Math.floor(Math.random() * data.length);
+        const randomItem = data[randomIndex].name;
+        if (!randomItems.includes(randomItem)) {
+            randomItems.push(randomItem);
+        }
+    }
+    return randomItems;
+}
+
 async function generateRandomCharacter() {
     const characterName = document.getElementById('characterName').value;
     if (characterName === '') {
         alert('Please enter a character name.');
-        return;
-    }
-
-
-
-    const numRandomSkills = Math.floor(Math.random() * 3) + 2
-    const maxRandomLanguages = Math.floor(Math.random() * 3) + 2
-    const maxRandomProficiencies = 6;
-    const maxRandomEquipment = 8;
-
-
-    const randomRaceData = await getRandomData('https://www.dnd5eapi.co/api/races');
-    const randomClassData = await getRandomData('https://www.dnd5eapi.co/api/classes');
-    const randomSkillsData = await getRandomData('https://www.dnd5eapi.co/api/skills');
-    const randomEquipmentData = await getRandomData('https://www.dnd5eapi.co/api/equipment');
-    const randomAlignmentData = await getRandomData('https://www.dnd5eapi.co/api/alignments');
-    const randomLanguageData = await getRandomData('https://www.dnd5eapi.co/api/languages');
-    const randomProficiencyData = await getRandomData('https://www.dnd5eapi.co/api/proficiencies');
-    const randomAbilityScoreData = await getRandomData('https://www.dnd5eapi.co/api/ability-scores');
-
-    if (
-        !randomRaceData ||
-        !randomClassData ||
-        !randomSkillsData ||
-        !randomEquipmentData ||
-        !randomAlignmentData ||
-        !randomLanguageData ||
-        !randomProficiencyData ||
-        !randomAbilityScoreData
-    ) {
-        alert('Error fetching data from the API.');
         return;
     }
 
@@ -74,7 +92,6 @@ async function generateRandomCharacter() {
     }, {});
     const randomLevel = Math.floor(Math.random() * 5) + 1;
     const randomHitPoints = 15 + randomLevel * (Math.floor(Math.random() * 8) + 4);
-
 
 
     const generatedCharacterInfo = `
@@ -102,7 +119,7 @@ async function generateRandomCharacter() {
     <button class="randomiseButton" id="randomiseAbilityScores">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="languages">
-    <strong>Languages:</strong> ${randomLanguages.join(', ')}
+    <strong>Additional Languages:</strong> ${randomLanguages.join(', ')}
     <button class="randomiseButton" id="randomiseLanguages">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="skills">
@@ -221,7 +238,7 @@ async function generateRandomCharacter() {
             const randomLanguages = getRandomItems(data.results, maxRandomLanguages); // You might want to define maxRandomLanguages at the beginning of your script.
             const languagesString = randomLanguages.join(', ');
             parentDiv.innerHTML = `
-                <strong>Languages:</strong> ${languagesString}
+                <strong>Additional Languages:</strong> ${languagesString}
                 <button class="randomiseButton" id="randomiseLanguages">Re-Roll</button>
             `;
         }).catch((error) => {
