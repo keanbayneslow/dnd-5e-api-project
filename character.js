@@ -321,6 +321,7 @@ async function generateRandomCharacter() {
 
 const generateButton = document.getElementById('generateButton');
 const generateButtonText = document.getElementById('generateButtonText');
+const characterNameInput = document.getElementById('characterName');
 
 generateButton.addEventListener('click', generateRandomCharacter);
 generateButton.addEventListener('mouseover', () => {
@@ -329,4 +330,10 @@ generateButton.addEventListener('mouseover', () => {
 
 generateButton.addEventListener('mouseout', () => {
     generateButtonText.textContent = '';
+});
+
+characterNameInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        generateRandomCharacter();
+    }
 });
