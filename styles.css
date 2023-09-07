@@ -1,18 +1,15 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Times New Roman', serif;
+    background-color: #0d0d0d;
     margin: 0;
     padding: 0;
+    color: #fff;
 }
 
 section {
     display: none;
-    background-color: #fff;
-    border: 1px solid #ccc;
     margin: 2rem;
     padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 header {
@@ -30,39 +27,52 @@ nav ul {
 
 nav li {
     display: inline;
-    margin-right: 2rem;
+    margin: 2rem;
 }
 
 nav a {
     text-decoration: none;
-    color: #333;
+    color: #F7CE65;
     font-weight: bold;
+    font-size: 18px;
+}
+
+nav a:hover {
+    color: #930C10;
+    text-shadow: 0 0 20px #930C10;
 }
 
 #landingSection {
     display: block;
     text-align: center;
+    padding: 3rem;
 }
 
 #landingImage {
-    width: 80rem;
-    height: 40rem;
-    margin: 0 auto;
+    width: 60rem;
+    height: 25rem;
+    margin: 3rem auto;
+    border: 5px solid #930C10;
+    border-radius: 30%;
+    box-shadow: 0 0 50px rgba(255, 0, 0, 0.7);
 }
 
-.title {
+h2 {
+    color: #F7CE65;
     font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.secondaryTitle {
-    font-size: 20px;
     margin-top: 20px;
 }
 
+p {
+    color: #fff;
+    font-size: 16px;
+}
+
+
+
 label {
     font-weight: bold;
+    color: #fff;
 }
 
 input[type="text"],
@@ -71,8 +81,28 @@ button {
     margin: 5px 0;
 }
 
+#generateButton {
+    border: none;
+    background-color: #0d0d0d;
+    transition: transform 0.2s ease;
+    border-radius: 80%;
+}
+
+#generateButton svg {
+    fill: #930C10;
+}
+
+#generateButton:hover {
+    transform: rotate(360deg);
+}
+
+#generateButton:hover svg {
+    fill: #F7CE65;
+}
+
 .characterAttribute {
-    margin-bottom: 1rem;
+    margin-bottom: 1;
+    color: #fff;
 }
 
 .randomiseButton {
@@ -117,5 +147,5 @@ button {
 }
 
 #searchResults div:hover {
-    background-color: #f0f0f0;
+    background-color: #930C10;
 }
