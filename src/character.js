@@ -337,3 +337,32 @@ characterNameInput.addEventListener('keydown', (event) => {
         generateRandomCharacter();
     }
 });
+
+async function saveCharacter(characterData) {
+    try {
+        const response = await fetch('http://localhost:3000/characters', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(characterData),
+        });
+
+        if (response.ok) {
+            alert('Character saved successfully!');
+        } else {
+            alert('Failed to save character.');
+        }
+    } catch (error) {
+        console.error('Error saving character:', error);
+    }
+}
+
+const saveCharacterButton = document.getElementById('saveCharacterButton');
+saveCharacterButton.addEventListener('click', () => {
+    const characterData = {
+        name: document.getElementById('characterName').value,
+    };
+
+    saveCharacter(characterData);
+});
