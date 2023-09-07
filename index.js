@@ -1,17 +1,21 @@
-const characterLink = document.getElementById('characterLink');
-const searchLink = document.getElementById('searchLink');
-const landingSection = document.getElementById('landingSection');
-const characterSection = document.getElementById('characterSection');
-const searchSection = document.getElementById('searchSection');
+document.addEventListener('DOMContentLoaded', function () {
 
-characterLink.addEventListener('click', () => {
-    landingSection.style.display = 'none';
-    characterSection.style.display = 'block';
-    searchSection.style.display = 'none';
-});
+    const characterLink = document.getElementById('characterLink');
+    const searchLink = document.getElementById('searchLink');
+    const landingSection = document.getElementById('landingSection');
+    const characterSection = document.getElementById('characterSection');
+    const searchSection = document.getElementById('searchSection');
 
-searchLink.addEventListener('click', () => {
-    landingSection.style.display = 'none';
-    characterSection.style.display = 'none';
-    searchSection.style.display = 'block';
+    characterLink.addEventListener('click', () => {
+        landingSection.style.display = 'none';
+        characterSection.style.display = 'block';
+        searchSection.style.display = 'none';
+    });
+
+    searchLink.addEventListener('click', () => {
+        landingSection.style.display = 'none';
+        characterSection.style.display = 'none';
+        searchSection.style.display = 'block';
+    });
+
 });
