@@ -360,9 +360,14 @@ async function saveCharacter(characterData) {
 
 const saveCharacterButton = document.getElementById('saveCharacterButton');
 saveCharacterButton.addEventListener('click', () => {
+    const characterName = document.getElementById('characterName').value;
+    const generatedCharacterInfo = document.getElementById('generatedCharacter').innerHTML;
+
     const characterData = {
-        name: document.getElementById('characterName').value,
+        name: characterName,
+        attributes: generatedCharacterInfo,
     };
 
     saveCharacter(characterData);
+    displaySavedCharacterAsCard(characterData);
 });
