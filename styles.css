@@ -15,7 +15,7 @@ body {
 section {
     display: none;
     margin: 2rem;
-    
+
 }
 
 nav {
@@ -139,7 +139,7 @@ button {
     margin-bottom: 1rem;
     color: #fff;
     font-size: 1.2rem;
-    
+
     justify-content: space-between;
 }
 
@@ -169,6 +169,10 @@ button {
     margin-top: 2rem;
     padding: 1rem;
     border-radius: 0.5rem;
+}
+
+.dt {
+    margin: 0.5rem;
 }
 
 #searchResults {

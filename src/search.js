@@ -50,24 +50,25 @@ async function displaySelectedItem(url) {
         // Create an HTML element to display the selected item's information
         const selectedItemDiv = document.createElement('div');
 
-        // Loop through each property in the data and create a paragraph for it
+        // Create a definition list for the key-value pairs
+        const dl = document.createElement('dl'); //definition list
+        
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
                 const value = data[key];
-                const paragraph = document.createElement('p');
+
+                // Create a definition term (dt) for the key
+                const dt = document.createElement('dt'); //definition term
+                dt.textContent = key;
+                dl.appendChild(dt);
+
+                // Create a definition description (dd) for the value
+                const dd = document.createElement('dd'); //definition description
 
                 if (Array.isArray(value)) {
                     if (key === "desc") {
                         // Handle "desc" array property (e.g., spell descriptions)
-                        const descParagraph = document.createElement('p');
-                        descParagraph.innerHTML = `<strong>${key}:</strong>`;
-                        selectedItemDiv.appendChild(descParagraph);
-
-                        value.forEach((descItem, index) => {
-                            const descSubParagraph = document.createElement('p');
-                            descSubParagraph.innerHTML = `${index + 1}. ${descItem}`;
-                            selectedItemDiv.appendChild(descSubParagraph);
-                        });
+                        dd.innerHTML = value.map((descItem, index) => `${index + 1}. ${descItem}`).join('<br>');
                     } else if (value.length > 0) {
                         // Handle other arrays with non-empty values
                         const values = value.map(item => {
@@ -76,8 +77,7 @@ async function displaySelectedItem(url) {
                             }
                             return item;
                         }).join(', ');
-                        paragraph.innerHTML = `<strong>${key}:</strong> ${values}`;
-                        selectedItemDiv.appendChild(paragraph);
+                        dd.textContent = values;
                     }
                 } else if (typeof value === 'object') {
                     // Handle nested objects
@@ -89,14 +89,17 @@ async function displaySelectedItem(url) {
                             return `${subKey}: ${value[subKey]}`;
                         })
                         .join(', ');
-                    paragraph.innerHTML = `<strong>${key}:</strong> { ${subProperties} }`;
-                    selectedItemDiv.appendChild(paragraph);
+                    dd.textContent = `{ ${subProperties} }`;
                 } else {
-                    paragraph.innerHTML = `<strong>${key}:</strong> ${value}`;
-                    selectedItemDiv.appendChild(paragraph);
+                    dd.textContent = value;
                 }
+
+                dl.appendChild(dd);
             }
         }
+
+        // Append the definition list to the selected item's div
+        selectedItemDiv.appendChild(dl);
 
         // Display the selected item's information
         selectedInfo.innerHTML = '';

@@ -100,43 +100,43 @@ async function generateRandomCharacter() {
     <strong>Name:</strong> ${characterName}
     </div>
     <div class="characterAttribute" id="race">
-    <strong>Race:</strong> ${randomRace}
+    <strong>Race:</strong> ${randomRace} <br>
     <button class="randomiseButton" id="randomiseRace">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="class">
-    <strong>Class:</strong> ${randomClass}
+    <strong>Class:</strong> ${randomClass} <br>
     <button class="randomiseButton" id="randomiseClass">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="level">
-    <strong>Level:</strong> ${randomLevel}
+    <strong>Level:</strong> ${randomLevel} <br>
     <button class="randomiseButton" id="randomiseLevel">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="hitPoints">
-    <strong>Hit Points:</strong> ${randomHitPoints}
+    <strong>Hit Points:</strong> ${randomHitPoints} <br>
     <button class="randomiseButton" id="randomiseHitPoints">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="abilities">
-    <strong>Ability Scores:</strong> ${Object.keys(randomAbilityScores).map(key => `${key}: ${randomAbilityScores[key]}`).join(', ')}
+    <strong>Ability Scores:</strong> ${Object.keys(randomAbilityScores).map(key => `${key}: ${randomAbilityScores[key]}`).join(', ')} <br>
     <button class="randomiseButton" id="randomiseAbilityScores">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="languages">
-    <strong>Additional Languages:</strong> ${randomLanguages.join(', ')}
+    <strong>Additional Languages:</strong> ${randomLanguages.join(', ')} <br>
     <button class="randomiseButton" id="randomiseLanguages">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="skills">
-    <strong>Skills:</strong> ${randomSkills.join(', ')}
+    <strong>Skills:</strong> ${randomSkills.join(', ')} <br>
     <button class="randomiseButton" id="randomiseSkills">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="proficiencies">
-    <strong>Proficiencies:</strong> ${randomProficiencies.join(', ')}
+    <strong>Proficiencies:</strong> ${randomProficiencies.join(', ')} <br>
     <button class="randomiseButton" id="randomiseProficiencies">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="equipment">
-    <strong>Starting Equipment:</strong> ${randomEquipment.join(', ')}
+    <strong>Starting Equipment:</strong> ${randomEquipment.join(', ')} <br>
     <button class="randomiseButton" id="randomiseEquipment">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="alignment">
-    <strong>Alignment:</strong> ${randomAlignment}
+    <strong>Alignment:</strong> ${randomAlignment} <br>
     <button class="randomiseButton" id="randomiseAlignment">Re-Roll</button>
     </div>
     `;

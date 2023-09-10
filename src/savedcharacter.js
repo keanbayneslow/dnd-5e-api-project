@@ -8,24 +8,20 @@ function displaySavedCharacterAsCard(characterData) {
         <div class="attributes">
             ${characterData.attributes}
         </div>
-        <button class="viewCharacterButton" data-id="${characterData.id}">View Details</button>
         <button class="deleteCharacterButton" data-id="${characterData.id}">Delete</button>
         <button class="copyCharacterButton">Copy to Clipboard</button>
     `;
 
-    card.querySelector('.viewCharacterButton').addEventListener('click', () => {
-        displayCharacterDetails(characterData);
-    });
 
     card.querySelector('.deleteCharacterButton').addEventListener('click', () => {
-        // Add code here to delete the character from the server based on the characterData.id
+        
         deleteCharacter(characterData.id);
-        // Remove the card from the UI after deleting
+        
         card.remove();
     });
 
     card.querySelector('.copyCharacterButton').addEventListener('click', () => {
-        // Add code here to copy characterData.attributes to the clipboard
+    
         copyToClipboard(characterData.attributes);
     });
 
@@ -48,12 +44,10 @@ async function deleteCharacter(characterId) {
     }
 }
 
-// Function to copy text to clipboard
 function copyToClipboard(text) {
     const textArea = document.createElement('textarea');
     textArea.value = text;
 
-    // Make the textarea invisible
     textArea.style.position = 'absolute';
     textArea.style.left = '-9999px';
 
@@ -74,23 +68,19 @@ function copyToClipboard(text) {
     }
 }
 
-// Add event listeners for delete and copy buttons
 document.addEventListener('click', (event) => {
     const target = event.target;
 
     if (target.classList.contains('deleteCharacterButton')) {
         const characterId = target.getAttribute('data-id');
         if (confirm('Are you sure you want to delete this character?')) {
-            // Call the deleteCharacter function
             deleteCharacter(characterId);
-            // Remove the card from the UI
             target.closest('.character-card').remove();
         }
     }
 
     if (target.classList.contains('copyCharacterButton')) {
         const attributes = target.closest('.character-card').querySelector('.attributes').textContent;
-        // Call the copyToClipboard function
         copyToClipboard(attributes);
     }
 });
