@@ -351,6 +351,7 @@ async function saveCharacter(characterData) {
         if (response.ok) {
             alert('Character saved successfully!');
         } else {
+            console.error('Failed to save character. Status Code:', response.status);
             alert('Failed to save character.');
         }
     } catch (error) {
@@ -358,9 +359,9 @@ async function saveCharacter(characterData) {
     }
 }
 
-const saveCharacterButton = document.getElementById('saveCharacterButton');
+// Event listener for saving a character
 saveCharacterButton.addEventListener('click', () => {
-    const characterName = document.getElementById('characterName').value;
+    const characterName = characterNameInput.value;
     const generatedCharacterInfo = document.getElementById('generatedCharacter').innerHTML;
 
     const characterData = {
@@ -368,6 +369,20 @@ saveCharacterButton.addEventListener('click', () => {
         attributes: generatedCharacterInfo,
     };
 
-    saveCharacter(characterData);
+    saveCharacterButton.classList.add('ticked');
+
+    saveCharacterButton.disabled = true;
+
+    saveCharacter(characterData)
+        .then(() => {
+            setTimeout(() => {
+                saveCharacterButton.classList.remove('ticked');
+                saveCharacterButton.disabled = false;
+            }, 2000); // Adjust the time as needed
+        })
+        .catch((error) => {
+            console.error('Error saving character:', error);
+        });
+
     displaySavedCharacterAsCard(characterData);
 });

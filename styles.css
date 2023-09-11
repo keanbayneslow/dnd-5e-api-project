@@ -157,6 +157,13 @@ button {
     background-color: #0056b3;
 }
 
+#saveCharacterButton.ticked {
+    background-color: #4CAF50;
+    color: white;
+    cursor: not-allowed;
+    transition: none;
+}
+
 #searchResults {
     max-height: 200px;
     overflow-y: auto;
