@@ -3,25 +3,24 @@ function displaySavedCharacterAsCard(characterData) {
     const card = document.createElement('div');
     card.classList.add('character-card');
 
+    // Remove the "Re-Roll" buttons from the attributes
+    const attributesWithoutReRoll = characterData.attributes.replace(/<button.*?Re-Roll<\/button>/g, '');
+
     card.innerHTML = `
         <h3>${characterData.name}</h3>
         <div class="attributes">
-            ${characterData.attributes}
+            ${attributesWithoutReRoll}
         </div>
         <button class="deleteCharacterButton" data-id="${characterData.id}">Delete</button>
         <button class="copyCharacterButton">Copy to Clipboard</button>
     `;
 
-
     card.querySelector('.deleteCharacterButton').addEventListener('click', () => {
-        
         deleteCharacter(characterData.id);
-        
         card.remove();
     });
 
     card.querySelector('.copyCharacterButton').addEventListener('click', () => {
-    
         copyToClipboard(characterData.attributes);
     });
 
