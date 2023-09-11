@@ -157,11 +157,35 @@ button {
     background-color: #0056b3;
 }
 
+#saveCharacterButton {
+    background-color: #F7CE65;
+}
+
+#saveCharacterButton:hover {
+    background-color: #930C10;
+}
+
+#searchButton {
+    background-color: #F7CE65;
+}
+
+#searchButton:hover {
+    background-color: #930C10;
+}
+
 #saveCharacterButton.ticked {
     background-color: #4CAF50;
     color: white;
     cursor: not-allowed;
     transition: none;
+}
+
+#categorySelect {
+    font-size: 1.2rem;
+}
+
+#searchInput {
+    width: 70%;
 }
 
 #searchResults {
