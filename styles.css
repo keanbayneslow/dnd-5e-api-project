@@ -15,6 +15,7 @@ body {
 section {
     display: none;
     margin: 2rem;
+    height: 100vh;
 
 }
 
@@ -220,6 +221,29 @@ button {
 
 #searchResults div:hover {
     background-color: #930C10;
+}
+
+.footer {
+    justify-content: space-between;
+    display: flex;
+    margin: 2rem;
+
+}
+
+.bottom .name {
+    color: #F7CE65;
+}
+
+.footer__links a {
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: inherit;
+
+}
+
+
+.footer__links a:hover {
+    color: #F7CE65;
 }
 
 @media screen and (max-width: 768px) {
