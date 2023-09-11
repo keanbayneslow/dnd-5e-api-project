@@ -1,7 +1,7 @@
 body {
     background-color: #2d2d2d;
     font-family: "Times New Roman", serif;
-    line-height: 1.5rem;
+    line-height: 2rem;
     font-size: 1.5rem;
     color: #fff;
 }
@@ -59,6 +59,15 @@ nav a:hover {
     border: 0.5rem solid #930C10;
     box-shadow: 0 0 1.5rem #F7CE65;
     margin-bottom: 5rem;
+}
+
+#landingSection a{
+    cursor: pointer;
+    color: #F7CE65;
+}
+
+#landingSection a:hover{
+    color: #930C10;
 }
 
 button {
