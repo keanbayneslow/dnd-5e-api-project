@@ -234,7 +234,7 @@ button {
     background-color: #930C10;
 }
 
-.footer {
+#footer {
     justify-content: space-between;
     display: flex;
     margin: 2rem;

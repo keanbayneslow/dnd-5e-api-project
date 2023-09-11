@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const characterSection = document.getElementById('characterSection');
     const savedCharacters = document.getElementById('savedCharacters');
     const searchSection = document.getElementById('searchSection');
+    const footer = document.getElementById('footer');
 
 
     characterLink.addEventListener('click', () => {
@@ -14,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
         characterSection.style.display = 'block';
         savedCharacters.style.display = 'none';
         searchSection.style.display = 'none';
+        footer.style.display = 'none';
     });
 
     savedLink.addEventListener('click', () => {
@@ -21,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         characterSection.style.display = 'none';
         savedCharacters.style.display = 'block';
         searchSection.style.display = 'none';
+        footer.style.display = 'none';
     });
 
     searchLink.addEventListener('click', () => {
@@ -28,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         characterSection.style.display = 'none';
         savedCharacters.style.display = 'none';
         searchSection.style.display = 'block';
+        footer.style.display = 'none';
     });
 
 });
