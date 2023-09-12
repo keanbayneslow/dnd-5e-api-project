@@ -44,7 +44,7 @@ nav a {
 
 nav a:hover {
     color: #930C10;
-    text-shadow: 0 0 10px #930C10;
+    text-shadow: 0 0 1px #930C10;
 }
 
 #landingSection {
@@ -162,7 +162,8 @@ button {
     padding: 0.5rem 1rem;
     cursor: pointer;
     border-radius: 0.5rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
+    justify-content: space-between;
 }
 
 .randomiseButton:hover {
@@ -259,12 +260,12 @@ button {
 
 @media screen and (max-width: 768px) {
     #landingSection {
-        max-width: 90%;
+        max-width: 100%;
+        padding: 0rem
     }
 
     #landingImage {
-        max-width: 90%;
-        max-width: 30rem;
+        max-width: 20rem;
         max-height: 10rem;
         border-width: 0.2rem;
         box-shadow: 0 0 0.5rem #F7CE65;

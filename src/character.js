@@ -31,30 +31,37 @@ let randomRaceData, randomClassData, randomSkillsData, randomEquipmentData, rand
 
 async function fetchData() {
     try {
-        randomRaceData = await getRandomData('https://www.dnd5eapi.co/api/races');
-        randomClassData = await getRandomData('https://www.dnd5eapi.co/api/classes');
-        randomSkillsData = await getRandomData('https://www.dnd5eapi.co/api/skills');
-        randomEquipmentData = await getRandomData('https://www.dnd5eapi.co/api/equipment');
-        randomAlignmentData = await getRandomData('https://www.dnd5eapi.co/api/alignments');
-        randomLanguageData = await getRandomData('https://www.dnd5eapi.co/api/languages');
-        randomProficiencyData = await getRandomData('https://www.dnd5eapi.co/api/proficiencies');
-        randomAbilityScoreData = await getRandomData('https://www.dnd5eapi.co/api/ability-scores');
+        // Use Promise.all to fetch data from multiple endpoints simultaneously
+        const fetchPromises = [
+            getRandomData('https://www.dnd5eapi.co/api/races'),
+            getRandomData('https://www.dnd5eapi.co/api/classes'),
+            getRandomData('https://www.dnd5eapi.co/api/skills'),
+            getRandomData('https://www.dnd5eapi.co/api/equipment'),
+            getRandomData('https://www.dnd5eapi.co/api/alignments'),
+            getRandomData('https://www.dnd5eapi.co/api/languages'),
+            getRandomData('https://www.dnd5eapi.co/api/proficiencies'),
+            getRandomData('https://www.dnd5eapi.co/api/ability-scores')
+        ];
 
-        if (
-            !randomRaceData ||
-            !randomClassData ||
-            !randomSkillsData ||
-            !randomEquipmentData ||
-            !randomAlignmentData ||
-            !randomLanguageData ||
-            !randomProficiencyData ||
-            !randomAbilityScoreData
-        ) {
+        // Wait for all data to be fetched - destructuring assignment to store the fetched data in their respective variables
+        [
+            randomRaceData,
+            randomClassData,
+            randomSkillsData,
+            randomEquipmentData,
+            randomAlignmentData,
+            randomLanguageData,
+            randomProficiencyData,
+            randomAbilityScoreData
+        ] = await Promise.all(fetchPromises);
+
+        // Check if any of the data requests failed
+        if (fetchPromises.some(data => !data)) {
             alert('Error fetching data from the API.');
-            return;
         }
     } catch (error) {
         console.error('Error fetching data:', error);
+        alert('An error occurred while fetching data.');
     }
 }
 // Call fetchData function before generating the character
@@ -94,49 +101,48 @@ async function generateRandomCharacter() {
     const randomHitPoints = 15 + randomLevel * (Math.floor(Math.random() * 8) + 4);
 
 
-
     const generatedCharacterInfo = `
     <div class="characterAttribute">
     <strong>Name:</strong> ${characterName}
     </div>
     <div class="characterAttribute" id="race">
-    <strong>Race:</strong> ${randomRace} <br>
+    <strong>Race:</strong> ${randomRace}&nbsp&nbsp&nbsp&nbsp 
     <button class="randomiseButton" id="randomiseRace">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="class">
-    <strong>Class:</strong> ${randomClass} <br>
+    <strong>Class:</strong> ${randomClass}&nbsp&nbsp&nbsp&nbsp
     <button class="randomiseButton" id="randomiseClass">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="level">
-    <strong>Level:</strong> ${randomLevel} <br>
+    <strong>Level:</strong> ${randomLevel}&nbsp&nbsp&nbsp&nbsp
     <button class="randomiseButton" id="randomiseLevel">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="hitPoints">
-    <strong>Hit Points:</strong> ${randomHitPoints} <br>
+    <strong>Hit Points:</strong> ${randomHitPoints}&nbsp&nbsp&nbsp&nbsp
     <button class="randomiseButton" id="randomiseHitPoints">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="abilities">
-    <strong>Ability Scores:</strong> ${Object.keys(randomAbilityScores).map(key => `${key}: ${randomAbilityScores[key]}`).join(', ')} <br>
+    <strong>Ability Scores:</strong> ${Object.keys(randomAbilityScores).map(key => `${key}: ${randomAbilityScores[key]}`).join(', ')}&nbsp&nbsp&nbsp&nbsp
     <button class="randomiseButton" id="randomiseAbilityScores">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="languages">
-    <strong>Additional Languages:</strong> ${randomLanguages.join(', ')} <br>
+    <strong>Additional Languages:</strong> ${randomLanguages.join(', ')}&nbsp&nbsp&nbsp&nbsp 
     <button class="randomiseButton" id="randomiseLanguages">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="skills">
-    <strong>Skills:</strong> ${randomSkills.join(', ')} <br>
+    <strong>Skills:</strong> ${randomSkills.join(', ')}&nbsp&nbsp&nbsp&nbsp 
     <button class="randomiseButton" id="randomiseSkills">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="proficiencies">
-    <strong>Proficiencies:</strong> ${randomProficiencies.join(', ')} <br>
+    <strong>Proficiencies:</strong> ${randomProficiencies.join(', ')}&nbsp&nbsp&nbsp&nbsp 
     <button class="randomiseButton" id="randomiseProficiencies">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="equipment">
-    <strong>Starting Equipment:</strong> ${randomEquipment.join(', ')} <br>
+    <strong>Starting Equipment:</strong> ${randomEquipment.join(', ')}&nbsp&nbsp&nbsp&nbsp 
     <button class="randomiseButton" id="randomiseEquipment">Re-Roll</button>
     </div>
     <div class="characterAttribute" id="alignment">
-    <strong>Alignment:</strong> ${randomAlignment} <br>
+    <strong>Alignment:</strong> ${randomAlignment}&nbsp&nbsp&nbsp&nbsp 
     <button class="randomiseButton" id="randomiseAlignment">Re-Roll</button>
     </div>
     `;
@@ -177,7 +183,7 @@ async function generateRandomCharacter() {
         randomRaceData.then((data) => {
             const randomRace = data.results[Math.floor(Math.random() * data.results.length)].name;
             parentDiv.innerHTML = `
-                <strong>Race:</strong> ${randomRace}
+                <strong>Race:</strong> ${randomRace}&nbsp&nbsp&nbsp&nbsp
                 <button class="randomiseButton" id="randomiseRace">Re-Roll</button>
             `;
         }).catch((error) => {
@@ -190,7 +196,7 @@ async function generateRandomCharacter() {
         randomClassData.then((data) => {
             const randomClass = data.results[Math.floor(Math.random() * data.results.length)].name;
             parentDiv.innerHTML = `
-                <strong>Class:</strong> ${randomClass}
+                <strong>Class:</strong> ${randomClass}&nbsp&nbsp&nbsp&nbsp
                 <button class="randomiseButton" id="randomiseClass">Re-Roll</button>
             `;
         }).catch((error) => {
@@ -201,7 +207,7 @@ async function generateRandomCharacter() {
     function randomiseLevel(parentDiv) {
         const randomLevel = Math.floor(Math.random() * 5) + 1;
         parentDiv.innerHTML = `
-            <strong>Level:</strong> ${randomLevel}
+            <strong>Level:</strong> ${randomLevel}&nbsp&nbsp&nbsp&nbsp
             <button class="randomiseButton" id="randomiseLevel">Re-Roll</button>
         `;
     }
@@ -209,7 +215,7 @@ async function generateRandomCharacter() {
     function randomiseHitPoints(parentDiv) {
         const randomHitPoints = 15 + Math.floor(Math.random() * 8) + 4;
         parentDiv.innerHTML = `
-            <strong>Hit Points:</strong> ${randomHitPoints}
+            <strong>Hit Points:</strong> ${randomHitPoints}&nbsp&nbsp&nbsp&nbsp
             <button class="randomiseButton" id="randomiseHitPoints">Re-Roll</button>
         `;
     }
@@ -225,7 +231,7 @@ async function generateRandomCharacter() {
                 .map((key) => `${key}: ${randomAbilityScores[key]}`)
                 .join(', ');
             parentDiv.innerHTML = `
-                <strong>Ability Scores:</strong> ${abilityScoresString}
+                <strong>Ability Scores:</strong> ${abilityScoresString}&nbsp&nbsp&nbsp&nbsp
                 <button class="randomiseButton" id="randomiseAbilityScores">Re-Roll</button>
             `;
         }).catch((error) => {
@@ -239,7 +245,7 @@ async function generateRandomCharacter() {
             const randomLanguages = getRandomItems(data.results, maxRandomLanguages); // You might want to define maxRandomLanguages at the beginning of your script.
             const languagesString = randomLanguages.join(', ');
             parentDiv.innerHTML = `
-                <strong>Additional Languages:</strong> ${languagesString}
+                <strong>Additional Languages:</strong> ${languagesString}&nbsp&nbsp&nbsp&nbsp
                 <button class="randomiseButton" id="randomiseLanguages">Re-Roll</button>
             `;
         }).catch((error) => {
@@ -250,11 +256,10 @@ async function generateRandomCharacter() {
     function randomiseSkills(parentDiv) {
         const randomSkillsData = getRandomData('https://www.dnd5eapi.co/api/skills');
         randomSkillsData.then((data) => {
-            const numRandomSkills = Math.floor(Math.random() * 3) + 2; // You might want to define numRandomSkills at the beginning of your script.
             const randomSkills = getRandomItems(data.results, numRandomSkills);
             const skillsString = randomSkills.join(', ');
             parentDiv.innerHTML = `
-                <strong>Skills:</strong> ${skillsString}
+                <strong>Skills:</strong> ${skillsString}&nbsp&nbsp&nbsp&nbsp
                 <button class="randomiseButton" id="randomiseSkills">Re-Roll</button>
             `;
         }).catch((error) => {
@@ -265,11 +270,10 @@ async function generateRandomCharacter() {
     function randomiseProficiencies(parentDiv) {
         const randomProficiencyData = getRandomData('https://www.dnd5eapi.co/api/proficiencies');
         randomProficiencyData.then((data) => {
-            const maxRandomProficiencies = 6; // Define this variable at the beginning of your script.
             const randomProficiencies = getRandomItems(data.results, maxRandomProficiencies);
             const proficienciesString = randomProficiencies.join(', ');
             parentDiv.innerHTML = `
-                <strong>Proficiencies:</strong> ${proficienciesString}
+                <strong>Proficiencies:</strong> ${proficienciesString}&nbsp&nbsp&nbsp&nbsp
                 <button class="randomiseButton" id="randomiseProficiencies">Re-Roll</button>
             `;
         }).catch((error) => {
@@ -280,11 +284,10 @@ async function generateRandomCharacter() {
     function randomiseEquipment(parentDiv) {
         const randomEquipmentData = getRandomData('https://www.dnd5eapi.co/api/equipment');
         randomEquipmentData.then((data) => {
-            const maxRandomEquipment = 8; // Define this variable at the beginning of your script.
             const randomEquipment = getRandomItems(data.results, maxRandomEquipment);
             const equipmentString = randomEquipment.join(', ');
             parentDiv.innerHTML = `
-                <strong>Starting Equipment:</strong> ${equipmentString}
+                <strong>Starting Equipment:</strong> ${equipmentString}&nbsp&nbsp&nbsp&nbsp
                 <button class="randomiseButton" id="randomiseEquipment">Re-Roll</button>
             `;
         }).catch((error) => {
@@ -297,7 +300,7 @@ async function generateRandomCharacter() {
         randomAlignmentData.then((data) => {
             const randomAlignment = data.results[Math.floor(Math.random() * data.results.length)].name;
             parentDiv.innerHTML = `
-                <strong>Alignment:</strong> ${randomAlignment}
+                <strong>Alignment:</strong> ${randomAlignment}&nbsp&nbsp&nbsp&nbsp
                 <button class="randomiseButton" id="randomiseAlignment">Re-Roll</button>
             `;
         }).catch((error) => {
