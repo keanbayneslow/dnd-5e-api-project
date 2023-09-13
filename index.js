@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
         characterSection.style.display = 'none';
         savedCharacters.style.display = 'none';
         searchSection.style.display = 'none';
-        footer.style.display = 'none';
+        footer.style.display = 'block';
     });
 
 });
