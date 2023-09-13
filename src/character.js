@@ -1,9 +1,13 @@
 // RANDOM CHARACTER GENERATION
+
+//Sets limits for character attributes returning more than one value
 const numRandomSkills = Math.floor(Math.random() * 4) + 2
 const maxRandomLanguages = Math.floor(Math.random() * 2) + 1
 const maxRandomProficiencies = 6;
 const maxRandomEquipment = 8;
 
+
+// Function to fetch data from an API endpoint
 async function getRandomData(url) {
     try {
         const response = await fetch(url);
@@ -15,6 +19,8 @@ async function getRandomData(url) {
     }
 }
 
+
+// Function to get random items from a list
 function getRandomItems(data, maxItems) {
     const randomItems = [];
     while (randomItems.length < maxItems && randomItems.length < data.length) {
@@ -27,8 +33,11 @@ function getRandomItems(data, maxItems) {
     return randomItems;
 }
 
+// Variables to store fetched data
 let randomRaceData, randomClassData, randomSkillsData, randomEquipmentData, randomAlignmentData, randomLanguageData, randomProficiencyData, randomAbilityScoreData;
 
+
+// Function to fetch data from multiple endpoints
 async function fetchData() {
     try {
         // Use Promise.all to fetch data from multiple endpoints simultaneously
@@ -67,18 +76,7 @@ async function fetchData() {
 // Call fetchData function before generating the character
 fetchData();
 
-function getRandomItems(data, maxItems) {
-    const randomItems = [];
-    while (randomItems.length < maxItems && randomItems.length < data.length) {
-        const randomIndex = Math.floor(Math.random() * data.length);
-        const randomItem = data[randomIndex].name;
-        if (!randomItems.includes(randomItem)) {
-            randomItems.push(randomItem);
-        }
-    }
-    return randomItems;
-}
-
+// Function to generate a random character
 async function generateRandomCharacter() {
     const characterName = document.getElementById('characterName').value;
     if (characterName === '') {
@@ -86,6 +84,7 @@ async function generateRandomCharacter() {
         return;
     }
 
+    // Generate random values for character attributes
     const randomRace = randomRaceData.results[Math.floor(Math.random() * randomRaceData.results.length)].name;
     const randomClass = randomClassData.results[Math.floor(Math.random() * randomClassData.results.length)].name;
     const randomSkills = getRandomItems(randomSkillsData.results, numRandomSkills);
@@ -100,7 +99,7 @@ async function generateRandomCharacter() {
     const randomLevel = Math.floor(Math.random() * 5) + 1;
     const randomHitPoints = 15 + randomLevel * (Math.floor(Math.random() * 8) + 4);
 
-
+    // Generate character info HTML
     const generatedCharacterInfo = `
     <div class="characterAttribute">
     <strong>Name:</strong> ${characterName}
@@ -178,6 +177,7 @@ async function generateRandomCharacter() {
         }
     });
 
+    // Function to re-roll the attributes
     function randomiseRace(parentDiv) {
         const randomRaceData = getRandomData('https://www.dnd5eapi.co/api/races');
         randomRaceData.then((data) => {
@@ -341,6 +341,8 @@ characterNameInput.addEventListener('keydown', (event) => {
     }
 });
 
+
+// Function to save the generated character
 async function saveCharacter(characterData) {
     try {
         const response = await fetch('http://localhost:3000/characters', {
@@ -381,7 +383,7 @@ saveCharacterButton.addEventListener('click', () => {
             setTimeout(() => {
                 saveCharacterButton.classList.remove('ticked');
                 saveCharacterButton.disabled = false;
-            }, 2000); // Adjust the time as needed
+            }, 100);
         })
         .catch((error) => {
             console.error('Error saving character:', error);
