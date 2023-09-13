@@ -40,11 +40,13 @@ Please feel free to contribute or use this project as a starting point for your 
 
 ```bash
 git clone https://github.com/yourusername/dnd-5e-api-project.git
+```
 
 - Navigate to the project directory:
 
 ```bash
 cd dnd-5e-api-project
+```
 
 - Create a new branch for your feature or bug fix: git checkout -b feature/new-feature.
 - Make your changes and commit them: git commit -m 'Add new feature'.
