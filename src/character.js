@@ -242,7 +242,7 @@ async function generateRandomCharacter() {
     function randomiseLanguages(parentDiv) {
         const randomLanguageData = getRandomData('https://www.dnd5eapi.co/api/languages');
         randomLanguageData.then((data) => {
-            const randomLanguages = getRandomItems(data.results, maxRandomLanguages); // You might want to define maxRandomLanguages at the beginning of your script.
+            const randomLanguages = getRandomItems(data.results, maxRandomLanguages); 
             const languagesString = randomLanguages.join(', ');
             parentDiv.innerHTML = `
                 <strong>Additional Languages:</strong> ${languagesString}&nbsp&nbsp&nbsp&nbsp
