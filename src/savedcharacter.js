@@ -29,11 +29,6 @@ async function deleteCharacter(characterId) {
             method: 'DELETE',
         });
 
-        if (response.ok) {
-            console.log(`Character with ID ${characterId} deleted successfully.`);
-        } else {
-            console.error(`Failed to delete character with ID ${characterId}.`);
-        }
     } catch (error) {
         console.error(`Error while deleting character: ${error}`);
     }

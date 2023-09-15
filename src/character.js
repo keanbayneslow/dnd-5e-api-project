@@ -353,16 +353,11 @@ async function saveCharacter(characterData) {
             body: JSON.stringify(characterData),
         });
 
-        if (response.ok) {
-            alert('Character saved successfully!');
-        } else {
-            console.error('Failed to save character. Status Code:', response.status);
-            alert('Failed to save character.');
-        }
     } catch (error) {
         console.error('Error saving character:', error);
     }
 }
+
 
 // Event listener for saving a character
 saveCharacterButton.addEventListener('click', () => {
